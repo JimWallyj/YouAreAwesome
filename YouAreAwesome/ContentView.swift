@@ -33,13 +33,17 @@ struct ContentView: View {
                 let imageString1 = "hand.thumbsup"
                 let imageString2 = "sun.max.fill"
                 
-                if message == message1{
-                    message = message2
-                    imageName = imageString2
-                }else{
-                    message = message1
-                    imageName = imageString1
-                }
+//                if message == message1{
+//                    message = message2
+//                    imageName = imageString2
+//                }else{
+//                    message = message1
+//                    imageName = imageString1
+//                }
+    // Using Ternary Operator"
+                imageName = (message == message1 ? imageString2 : imageString1)
+                message = (message == message1 ? message2 : message1)
+                
             }
             
             .buttonStyle(.borderedProminent)
