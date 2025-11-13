@@ -11,6 +11,7 @@ struct ContentView: View {
     @State private var message = ""
     //@State private var imageString = ""
     @State private var imageName = ""
+    @State private var imageNumber = 0
     var body: some View {
         
         VStack {
@@ -30,7 +31,7 @@ struct ContentView: View {
             
             Spacer()
         
-            Button("Press Me!") {
+            Button("Show Me!") {
                 let message1 = "You are Awesome!"
                 let message2 = "You are Great!"
 //                let imageString1 = "image0"
@@ -39,7 +40,16 @@ struct ContentView: View {
     // Using Ternary Operator"
                // imageName = (message == message1 ? imageString2 : imageString1)
                 message = (message == message1 ? message2 : message1)
-                imageName = (imageName == "image0" ? "image1" : "image0")
+        //        imageName = (imageName == "image0" ? "image1" : "image0")
+                //TODO: - Update the imageName variable -
+                //imageNumber = imageNumber + 1
+                imageName = "image\(imageNumber)"
+                imageNumber += 1
+                
+                if imageNumber > 9{
+                    imageNumber = 0
+                }
+                
             }
             
             .buttonStyle(.borderedProminent)
