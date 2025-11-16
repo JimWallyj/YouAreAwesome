@@ -12,6 +12,7 @@ struct ContentView: View {
     //@State private var imageString = ""
     @State private var imageName = ""
     @State private var imageNumber = 0
+    @State private var messageNumber = 0
     var body: some View {
         
         VStack {
@@ -28,21 +29,39 @@ struct ContentView: View {
                 .font(.largeTitle)
                 .fontWeight(.heavy)
                 .foregroundStyle(.red)
+                .multilineTextAlignment(.center)
             
             Spacer()
         
             Button("Show Me!") {
-                let message1 = "You are Awesome!"
-                let message2 = "You are Great!"
-//                let imageString1 = "image0"
-//                let imageString2 = "image1"
-            
-    // Using Ternary Operator"
-               // imageName = (message == message1 ? imageString2 : imageString1)
-                message = (message == message1 ? message2 : message1)
-        //        imageName = (imageName == "image0" ? "image1" : "image0")
-                //TODO: - Update the imageName variable -
-                //imageNumber = imageNumber + 1
+//                let message1 = "You are Awesome!"
+//                let message2 = "You are Great!"
+//                let message3 = "Fabulous? That's you!"
+
+//                if message == message1{
+//                    message = message2
+//                } else if message == message2{
+//                    message = message3
+//                } else{
+//                    message = message1
+//                }
+                
+                let messages = ["You Are Awesome!",
+                                "When the Genius Bar Needs Help, They Call You!",
+                                "You Are Great",
+                                "Fabulous? That's You!",
+                                "You Are Fantstic!",
+                                "You Swifty!",
+                                "You Are a Code Monster!",
+                                "You Make Me Smile!",
+                                "Added a new one"]
+                
+                message = messages[messageNumber]
+                messageNumber += 1
+                if messageNumber > (messages.count - 1){
+                    messageNumber = 0
+                }
+                
                 imageName = "image\(imageNumber)"
                 imageNumber += 1
                 
