@@ -11,8 +11,8 @@ struct ContentView: View {
     @State private var message = ""
     //@State private var imageString = ""
     @State private var imageName = ""
-    @State private var imageNumber = 0
-    @State private var messageNumber = 0
+    @State private var lastImageNumber = -1
+    @State private var lastMessageNumber = -1
     var body: some View {
         
         VStack {
@@ -46,10 +46,43 @@ struct ContentView: View {
                                 "You Are a Code Monster!",
                                 "You Make Me Smile!"]
                 
-                message = messages[Int.random(in: 0...messages.count-1)]
+                //Using while statements and to keep track of the current message and image being shown:
+                // generate a random messageNumber to use as an index
+                // if messageNumber == lastMessageNumber {
+                //     keep generating a new random messageNumber
+                //     until we get a messageNumber != lastMessageNumber
+                // set messageString to messages[messageNumber]
+                // update the lastMessageNumber with messageNumber
                 
-                imageName = "image\(Int.random(in: 0...9))"
+//                var messageNumber = Int.random(in: 0...messages.count-1)
+//                while messageNumber == lastMessageNumber{
+//                    messageNumber = Int.random(in: 0...messages.count-1)
+//                }
+//                message = messages[messageNumber]
+//                lastMessageNumber = messageNumber
+//
+//                var imageNumber = Int.random(in: 0...9)
+//                while imageNumber == lastImageNumber{
+//                    imageNumber = Int.random(in: 0...9)
+//                }
+//                imageName = "image\(imageNumber)"
+//                lastImageNumber = imageNumber
                 
+                // Using repeat statement:
+                
+                var messageNumber: Int
+                repeat{
+                    messageNumber = Int.random(in: 0...messages.count-1)
+                } while messageNumber == lastMessageNumber
+                message = messages[messageNumber]
+                lastMessageNumber = messageNumber
+                
+                var imageNumber: Int
+                repeat{
+                    imageNumber = Int.random(in: 0...9)
+                } while imageNumber == lastImageNumber
+                imageName = "image\(imageNumber)"
+                lastImageNumber = imageNumber
             }
             
             .buttonStyle(.borderedProminent)
