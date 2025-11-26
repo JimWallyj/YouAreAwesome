@@ -52,47 +52,45 @@ struct ContentView: View {
                                 "You Are a Code Monster!",
                                 "You Make Me Smile!"]
                 
-                var messageNumber: Int
-                repeat{
-                    messageNumber = Int.random(in: 0...messages.count-1)
-                } while messageNumber == lastMessageNumber
-                message = messages[messageNumber]
-                lastMessageNumber = messageNumber
-                
-                var imageNumber: Int
-                repeat{
-                    imageNumber = Int.random(in: 0...(numberOfImages-1))
-                } while imageNumber == lastImageNumber
-                imageName = "image\(imageNumber)"
-                lastImageNumber = imageNumber
-                
-                var soundNumber: Int
-                repeat{
-                    soundNumber = Int.random(in: 0...(numberOfSounds-1))
-                }while soundNumber == lastSoundNumber
-                // Read the File from the Assets Catalog
-                lastSoundNumber = soundNumber
-                let soundName = "sound\(soundNumber)"
-                guard let soundFile = NSDataAsset(name: soundName) else{
-                    print("😡 Could not read file named \(soundName)")
-                    return
-                }
-                // Initialize the AVAudioPlayer & Play Sound
-                do{
-                    audioPlayer = try AVAudioPlayer(data: soundFile.data)
-                    audioPlayer.play()
-                }catch{
-                    print("😡 ERROR: \(error.localizedDescription) creating audioPlayer")
-                }
-                
-                
-                
+                lastMessageNumber = nonRepeatingRandom(lastNumber: lastMessageNumber, upperBounds: messages.count-1)
+                message = messages[lastMessageNumber]
+
+                lastImageNumber = nonRepeatingRandom(lastNumber: lastImageNumber, upperBounds: numberOfImages-1)
+                imageName = "image\(lastImageNumber)"
+
+                lastSoundNumber = nonRepeatingRandom(lastNumber: lastSoundNumber, upperBounds: numberOfImages-1)
+                playSound(soundName: "sound\(lastSoundNumber)")
             }
             .buttonStyle(.borderedProminent)
             .font(.title2)
         }
         .padding()
         
+    }
+    //Generates non-repeating random values
+    //Accepts lastNumber, which represents lastMessageNumber, lastImageNumber, lastSoundNumber
+    //Accepts upperBounds, which represents maximum of random-generated number
+    func nonRepeatingRandom(lastNumber: Int, upperBounds: Int) -> Int{
+        var randomNumber = 0
+        repeat{
+            randomNumber = Int.random(in: 0...(upperBounds))
+        } while randomNumber == lastNumber
+        //lastNumber = randomNumber
+        return randomNumber  //Returns random Int value between 0 and upperBounds
+    }
+    
+    func playSound(soundName: String){
+        guard let soundFile = NSDataAsset(name: soundName) else{
+            print("😡 Could not read file named \(soundName)")
+            return
+        }
+        // Initialize the AVAudioPlayer & Play Sound
+        do{
+            audioPlayer = try AVAudioPlayer(data: soundFile.data)
+            audioPlayer.play()
+        }catch{
+            print("😡 ERROR: \(error.localizedDescription) creating audioPlayer")
+        }
     }
 }
 
